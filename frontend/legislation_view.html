@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="css/pico-main/css/pico.jade.css">
+        
+        <title>Legislation Viewer</title>    
+    </head>
+
+
+    <body>
+        <header class="container">
+            <hgroup>
+                <h1>View All Legislation</h1>
+            </hgroup>
+        </header>
+        <a href="index.html">Home</a>
+        <ul id="legislationList"></ul>
+
+
+        <script src="js/scripts.js"></script>
+                <script>
+            let displayList = [];
+
+            fetch(`http://localhost:8080/api/legislation`)
+            .then(response => response.json())
+            .then((data) => {
+                var list = document.getElementById("legislationList");
+                data.forEach((legislation) => {
+                    displayList.push(`${legislation.legTitle}` );
+                    
+                    let legItem = document.createElement("li");
+                    let subList = document.createElement("ul");
+                    let textItem = document.createElement("li");
+                    let sponsorItem = document.createElement("li");
+
+                    legItem.innerText = `Title: ${legislation.legTitle}`;
+                    textItem.innerText = `Text: ${legislation.legText}`;
+                    sponsorItem.innerText = `Sponsors: ${legislation.sponsors.join(', ')}`;
+
+                    subList.appendChild(textItem);
+                    subList.appendChild(sponsorItem);
+                    legItem.appendChild(subList);
+                    
+                    list.appendChild(legItem);
+                })
+                console.log(displayList)
+            })
+            .catch((err) => {
+                console.log(`Error fetching: ${err}`)
+            });
+        </script>
+    </body>
+</html>

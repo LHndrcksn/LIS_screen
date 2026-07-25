@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="css/pico-main/css/pico.jade.css">
+        
+        <title>Legislator Form</title>    
+    </head>
+
+
+    <body>
+        <header class="container">
+            <hgroup>
+                <h1>Submit A New Legislator</h1>
+            </hgroup>
+        </header>
+        <a href="index.html">Home</a><br>
+
+        <form onsubmit="onLegislatorSubmit()">
+            <label for="firstName">First Name:</label>
+            <input type="text" name="firstName" id="firstName" placeholder="John">
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" name="lastName" id="lastName" placeholder="Doe">
+
+            <label for="homeTown">Home Town:</label>
+            <input type="text" name="homeTown" id="homeTown" placeholder="New Cityburgh">
+
+            <br>
+            <button type="submit">Submit Legislator</button>
+        </form>
+
+        
+        <script src="js/scripts.js"></script>
+    </body>
+</html>

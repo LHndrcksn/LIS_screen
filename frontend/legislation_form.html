@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="css/pico-main/css/pico.jade.css">
+        
+        <title>Legislation Form</title>    
+    </head>
+
+
+    <body>
+        <header class="container">
+            <hgroup>
+                <h1>Submit New Legislation</h1>
+            </hgroup>
+        </header>
+        <a href="index.html">Home</a><br>
+
+        <form onsubmit="onLegislationSubmit()">
+            <label for="legTitle">Legislation Title:</label>
+            <input type="text" name="legTitle" id="legTitle" placeholder="Title">
+
+            <label for="legText">Legislation Text:</label>
+            <input type="text" name="legText" id="legText" placeholder="Text">
+            
+            <legend><strong>Legislation Sponsors:</strong></legend>
+            <fieldset id="sponsors">
+            </fieldset>
+
+            <br>
+            <button type="submit">Submit Legislation</button>
+        </form>
+
+        
+        <script src="js/scripts.js"></script>
+        <script>
+
+            fetch(`http://localhost:8080/api/legislators`)
+            .then(response => response.json())
+            .then((data) => {
+                var list = document.getElementById("sponsors");
+                data.forEach((legislator) => {
+                    
+                    let label = document.createElement("label");
+                    label.innerText = `${legislator.firstName} ${legislator.lastName}`;
+                    label.htmlFor = label.innerText;
+                    
+                    let input = document.createElement("input");
+                    input.type = "checkbox";
+                    input.id = label.innerText;
+                    input.name = "sponsor";
+
+                    label.appendChild(input);
+                    list.appendChild(label);
+                })
+            })
+            .catch((err) => {
+                console.log(`Error fetching: ${err}`)
+            });
+        </script>
+    </body>
+</html>
